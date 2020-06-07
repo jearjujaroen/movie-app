@@ -8,7 +8,7 @@ import { LazyImage } from '../../components/LazyImage/Image';
 export const MovieList = ({ movies, basePosterUrl }) => {
   return (
     <div className={styles.container}>
-      {movies.length > 0 ? (
+      {movies && movies.length > 0 ? (
         <ol className={styles.wrapper}>
           {movies.map(movie => (
             <li className={styles.box} key={movie.id}>
