@@ -12,6 +12,7 @@ function App() {
   const { baseProfileUrl, basePosterUrl, baseBackdropUrl } = useImageDetails();
   const [query, setQuery] = useState('');
 
+  //movie reducer
   const movieReducer = (state, action) => {
     switch (action.type) {
       case 'CLEAR_MOVIES':
@@ -30,6 +31,7 @@ function App() {
     fetching: true,
   });
 
+  //page reducer
   const pageReducer = (state, action) => {
     switch (action.type) {
       case 'RESET_PAGE':
@@ -45,6 +47,7 @@ function App() {
     page: 0,
   });
 
+  //custom hook to get popular movies and searched movies
   const { header } = useFetchMovies(pager, movieDispatch, query);
 
   // implement infinite scrolling with intersection observer
@@ -76,8 +79,7 @@ function App() {
         </Route>{' '}
       </Switch>{' '}
       <div
-        id='page-bottom-boundary'
-        style={{ border: '1px solid red' }}
+        style={{ border: '1px solid transparent' }}
         ref={bottomBoundaryRef}
       ></div>
     </Router>
