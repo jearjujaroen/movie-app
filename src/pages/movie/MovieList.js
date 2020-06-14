@@ -14,7 +14,6 @@ export const MovieList = ({ movies, basePosterUrl }) => {
                 <div className={styles.cardContainer}>
                   <Link to={`/movie/${movie.id}`}>
                     <img
-                      className={`${styles.movieImg} ${styles.fadeIn}`}
                       src={`${basePosterUrl}${movie.poster_path}`}
                       alt={movie.title}
                     />
