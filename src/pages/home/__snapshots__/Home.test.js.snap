@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home snapshot renders 1`] = `
+<main
+  className="mainPageContainer"
+>
+  <div
+    className="searchBar"
+  >
+    <form>
+      <label
+        htmlFor="search"
+      />
+      <input
+        name="search"
+        onChange={[Function]}
+        placeholder="Search"
+      />
+      <svg
+        height="21"
+        viewBox="0 0 12 13"
+        width="20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g
+          fill="none"
+          stroke="#6c6c6c"
+          strokeWidth="2"
+        >
+          <path
+            d="M11.29 11.71l-4-4"
+          />
+          <circle
+            cx="5"
+            cy="5"
+            r="4"
+          />
+        </g>
+      </svg>
+    </form>
+  </div>
+  <h1
+    className="header"
+  >
+    
+  </h1>
+  <div
+    className="container"
+  >
+    <p>
+      No results!
+    </p>
+  </div>
+</main>
+`;
