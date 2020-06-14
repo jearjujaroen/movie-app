@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from 'react';
-import { fetchMovieImageConfigs, fetchMovies } from './api';
+import { fetchMovieImageConfigs, fetchMovies } from './api/APIUtils';
 
 export function useImageDetails() {
   const [state, setState] = useState({

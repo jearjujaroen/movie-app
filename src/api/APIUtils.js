@@ -1,4 +1,4 @@
-import { sortMoviesByPopularity } from './utils';
+import { sortMoviesByPopularity } from '../utils';
 
 export async function fetchMovieImageConfigs() {
   try {

@@ -1,6 +1,6 @@
 import { fetchMovieImageConfigs, fetchMovies } from './api';
-import movieImgConfigs from './testMocks/movieImgConfigs.json';
-import movies from './testMocks/movies.json';
+import movieImgConfigs from '../testMocks/movieImgConfigs.json';
+import movies from '../testMocks/movies.json';
 
 describe('it fetches movie configurations', () => {
   test('fetches successfully', () => {
