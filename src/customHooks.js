@@ -1,5 +1,5 @@
-import { useEffect, useCallback, useRef, useState } from 'react';
-import { sortMoviesByPopularity } from './utils';
+import { useEffect, useCallback, useState } from 'react';
+import { fetchMovieImageConfigs, fetchMovies } from './api';
 
 export function useImageDetails() {
   const [state, setState] = useState({
@@ -9,35 +9,15 @@ export function useImageDetails() {
   });
 
   useEffect(() => {
-    const fetchMovieImageConfigs = async () => {
-      try {
-        const movieImageData = await (
-          await fetch(
-            `https://api.themoviedb.org/3/configuration?api_key=${process.env.REACT_APP_MOVIE_DB_KEY}`
-          )
-        ).json();
-
-        const basePosterUrl =
-          movieImageData.images.base_url +
-          movieImageData.images.poster_sizes[6];
-        const baseBackdropUrl =
-          movieImageData.images.base_url +
-          movieImageData.images.backdrop_sizes[2];
-        const baseProfileUrl =
-          movieImageData.images.base_url +
-          movieImageData.images.profile_sizes[3];
-
+    fetchMovieImageConfigs().then(
+      ({ basePosterUrl, baseBackdropUrl, baseProfileUrl }) => {
         setState(state => ({
           basePosterUrl,
           baseBackdropUrl,
           baseProfileUrl,
         }));
-      } catch (e) {
-        console.log(e);
       }
-    };
-
-    fetchMovieImageConfigs();
+    );
   }, []);
 
   const { basePosterUrl, baseBackdropUrl, baseProfileUrl } = state;
@@ -46,35 +26,18 @@ export function useImageDetails() {
 
 export function useFetchMovies(data, dispatch, query) {
   const [header, setHeader] = useState('Popular Movies');
+  const isSearch = query !== '';
 
   const getMovies = useCallback(async () => {
-    let isSearch = query !== '';
-    // base api url
-    let apiUrl = `https://api.themoviedb.org/3`;
-    let apiPopularUrl = `/movie/popular?`;
-    let queryMoviesUrl = `/search/movie?query=${query}&include_adult=false&`;
-
-    apiUrl = isSearch ? (apiUrl += queryMoviesUrl) : (apiUrl += apiPopularUrl);
-
-    //append api_key
-    apiUrl += `api_key=${process.env.REACT_APP_MOVIE_DB_KEY}`;
-    //append page number
-    apiUrl += `&page=${data.page}`;
-
-    let movieResults = [];
-    try {
-      const movieData = await (await fetch(apiUrl)).json();
-      movieResults = isSearch
-        ? movieData.results
-        : sortMoviesByPopularity(movieData.results);
-      setHeader(isSearch ? 'Results' : 'Popular Movies');
-      dispatch({ type: 'STACK_MOVIES', movies: movieResults });
+    const { page } = data;
+    fetchMovies(query, page, isSearch).then(movieResults => {
+      if (movieResults) {
+        setHeader(isSearch ? 'Results' : 'Popular Movies');
+        dispatch({ type: 'STACK_MOVIES', movies: movieResults });
+      }
       dispatch({ type: 'FETCHING_MOVIES', fetching: false });
-    } catch (e) {
-      console.log(e);
-      dispatch({ type: 'FETCHING_MOVIES', fetching: false });
-    }
-  }, [data.page, query, dispatch]);
+    });
+  }, [data, query, dispatch, isSearch]);
 
   useEffect(() => {
     dispatch({ type: 'FETCHING_MOVIES', fetching: true });
