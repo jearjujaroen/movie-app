@@ -15,6 +15,7 @@ const CastProfiles = ({ casts, baseProfileUrl }) =>
 export const MovieCredits = ({ movieId, baseProfileUrl }) => {
   const [casts, setCasts] = useState([]);
   useEffect(() => {
+    //TODO: refactor fetchMovieCredits api into APIUtils
     const fetchMovieCredits = async () => {
       const movieCreditResp = await (
         await fetch(

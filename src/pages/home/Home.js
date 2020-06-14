@@ -9,7 +9,6 @@ export const Home = ({ header, movies, basePosterUrl, handleInputChange }) => {
     <main className={styles.mainPageContainer}>
       <Search handleInputChange={handleInputChange} />
       <h1 className={styles.header}>{header}</h1>
-
       <MovieList movies={movies} basePosterUrl={basePosterUrl} />
     </main>
   );

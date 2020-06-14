@@ -6,8 +6,6 @@ import { MovieList } from './MovieList';
 import { MovieCredits } from './MovieCredits';
 import { Route, MemoryRouter } from 'react-router-dom';
 
-// import movies from './testMock.json';
-
 const baseProfileUrl = '';
 
 describe('Movie', () => {

@@ -6,9 +6,11 @@ import { MovieCredits } from './MovieCredits';
 
 export const MovieDetails = ({ baseBackdropUrl, baseProfileUrl }) => {
   const [movie, setMovie] = useState({});
+  //we are getting movieId from useParams because MovieDetails is not a child component of MovieList
   let { movieId } = useParams();
 
   useEffect(() => {
+    //TODO: refactor fetchMovieDetails api into APIUtils
     const fetchMovieDetails = async () => {
       try {
         const movieDetailsResp = await (
