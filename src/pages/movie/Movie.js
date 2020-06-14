@@ -5,6 +5,7 @@ import { Route, useRouteMatch } from 'react-router-dom';
 
 export const Movie = ({ baseBackdropUrl, baseProfileUrl }) => {
   let { path } = useRouteMatch();
+
   return (
     <>
       <Route path={`${path}/:movieId`}>

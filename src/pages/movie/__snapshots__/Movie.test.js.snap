@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Movie snapshot renders 1`] = `null`;
+
+exports[`MovieCredits snapshot renders 1`] = `null`;
+
+exports[`MovieDetails snapshot renders 1`] = `
+<div
+  className="container"
+>
+  <h1 />
+  <img
+    className="imgBackdrop"
+    src="undefined"
+  />
+  <h4>
+    Overview:
+  </h4>
+  <div />
+  <h4>
+    Main Cast
+  </h4>
+  <div
+    className="movieCreditsWrapper"
+  />
+</div>
+`;
+
+exports[`MovieList snapshot renders 1`] = `
+<div
+  className="container"
+>
+  <p>
+    No results!
+  </p>
+</div>
+`;

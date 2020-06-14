@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useRef, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styles from './MovieList.module.css';
-
-import { LazyImage } from '../../components/LazyImage/Image';
 
 export const MovieList = ({ movies, basePosterUrl }) => {
   return (
@@ -15,7 +13,11 @@ export const MovieList = ({ movies, basePosterUrl }) => {
               {movie.poster_path && (
                 <div className={styles.cardContainer}>
                   <Link to={`/movie/${movie.id}`}>
-                    <LazyImage src={`${basePosterUrl}${movie.poster_path}`} />
+                    <img
+                      className={`${styles.movieImg} ${styles.fadeIn}`}
+                      src={`${basePosterUrl}${movie.poster_path}`}
+                      alt={movie.title}
+                    />
                     <div className={styles.descriptionText}>
                       <p>{movie.vote_average}</p>
                     </div>

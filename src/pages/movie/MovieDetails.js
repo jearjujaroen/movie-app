@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import styles from './MovieDetails.module.css';
-import MovieCredits from './MovieCredits';
+import { MovieCredits } from './MovieCredits';
 
 export const MovieDetails = ({ baseBackdropUrl, baseProfileUrl }) => {
   const [movie, setMovie] = useState({});
@@ -13,7 +13,7 @@ export const MovieDetails = ({ baseBackdropUrl, baseProfileUrl }) => {
       try {
         const movieDetailsResp = await (
           await fetch(
-            `https://api.themoviedb.org/3/movie/${movieId}?api_key=123480899f7e224d408d82a90f47f3c2&language=en-US`
+            `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.REACT_APP_MOVIE_DB_KEY}&language=en-US`
           )
         ).json();
         setMovie(movieDetailsResp);
@@ -22,7 +22,7 @@ export const MovieDetails = ({ baseBackdropUrl, baseProfileUrl }) => {
       }
     };
     fetchMovieDetails();
-  }, []);
+  }, [movieId]);
 
   return (
     <div className={styles.container}>
@@ -30,6 +30,7 @@ export const MovieDetails = ({ baseBackdropUrl, baseProfileUrl }) => {
       <img
         className={styles.imgBackdrop}
         src={`${baseBackdropUrl}${movie.backdrop_path}`}
+        alt={movie.title}
       />
       <h4>Overview:</h4>
       <div>{movie.overview}</div>

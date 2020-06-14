@@ -1,30 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import styles from './MovieCredits.module.css';
 
 const CastProfiles = ({ casts, baseProfileUrl }) =>
   casts
     .filter(cast => cast.profile_path !== null)
     .map(cast => (
-      <img key={cast.cast_id} src={`${baseProfileUrl}${cast.profile_path}`} />
+      <img
+        key={cast.cast_id}
+        src={`${baseProfileUrl}${cast.profile_path}`}
+        alt='cast'
+      />
     ));
 
-const MovieCredits = ({ movieId, baseProfileUrl }) => {
+export const MovieCredits = ({ movieId, baseProfileUrl }) => {
   const [casts, setCasts] = useState([]);
   useEffect(() => {
     const fetchMovieCredits = async () => {
       const movieCreditResp = await (
         await fetch(
-          `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=123480899f7e224d408d82a90f47f3c2`
+          `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${process.env.REACT_APP_MOVIE_DB_KEY}`
         )
       ).json();
-      console.log({ movieCreditResp });
       const movieCast = movieCreditResp.cast;
       setCasts(movieCast);
     };
 
     fetchMovieCredits();
-  }, []);
+  }, [movieId]);
 
   return (
     <>
@@ -32,8 +34,6 @@ const MovieCredits = ({ movieId, baseProfileUrl }) => {
     </>
   );
 };
-
-export default MovieCredits;
 
 MovieCredits.propTypes = {
   movieId: PropTypes.string.isRequired,
