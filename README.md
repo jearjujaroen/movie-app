@@ -2,6 +2,13 @@
 
 A fun side project using the [The Movie Database API](https://developers.themoviedb.org/3/getting-started/introduction). Currently WIP.
 
+#### Features:
+
+- display a list of popular movies sorted by ratings
+- users can search for movies
+- allows infinite scrolling
+- can click on a movie and see more details
+
 ---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
