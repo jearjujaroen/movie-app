@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MovieList } from '../movie/MovieList';
+import { MovieList } from '../../components/movie-list/MovieList';
 import { Search } from '../../components/search/Search';
 import styles from './Home.module.css';
 
-export const Home = ({ header, movies, basePosterUrl, handleInputChange }) => {
+export const Home = ({
+  header = '',
+  movies = [],
+  basePosterUrl = '',
+  handleInputChange,
+}) => {
   return (
     <main className={styles.mainPageContainer}>
       <Search handleInputChange={handleInputChange} />

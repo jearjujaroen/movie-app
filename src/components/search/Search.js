@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './Search.module.css';
 
 export const Search = ({ handleInputChange }) => (
+  //TODO: implement debounce or use Lodash debounce when searching
   <div className={styles.searchBar}>
     <form>
       <label htmlFor='search'></label>

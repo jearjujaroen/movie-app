@@ -1,20 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MovieDetails } from './MovieDetails';
-import { Route, useRouteMatch } from 'react-router-dom';
+import { MovieDetails } from '../../components/movie-details/MovieDetails';
+import { useLocation } from 'react-router-dom';
+import { useFetchMovieDetails } from '../../customHooks';
 
-export const Movie = ({ baseBackdropUrl, baseProfileUrl }) => {
-  let { path } = useRouteMatch();
+function getMovieIdFromUrl(path) {
+  return path.slice(path.lastIndexOf('/') + 1);
+}
+
+export const Movie = ({ baseBackdropUrl = '', baseProfileUrl = '' }) => {
+  let location = useLocation();
+  const movieId = getMovieIdFromUrl(location.pathname);
+
+  const { movie, cast } = useFetchMovieDetails(movieId);
 
   return (
-    <>
-      <Route path={`${path}/:movieId`}>
-        <MovieDetails
-          baseBackdropUrl={baseBackdropUrl}
-          baseProfileUrl={baseProfileUrl}
-        />
-      </Route>
-    </>
+    <MovieDetails
+      cast={cast}
+      movie={movie}
+      movieId={movieId}
+      baseBackdropUrl={baseBackdropUrl}
+      baseProfileUrl={baseProfileUrl}
+    />
   );
 };
 
