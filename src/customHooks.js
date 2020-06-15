@@ -1,5 +1,9 @@
 import { useEffect, useCallback, useState } from 'react';
-import { fetchMovieImageConfigs, fetchMovies } from './api/APIUtils';
+import {
+  fetchMovieImageConfigs,
+  fetchMovies,
+  fetchMovieDetails,
+} from './api/APIUtils';
 
 export function useImageDetails() {
   const [state, setState] = useState({
@@ -28,8 +32,9 @@ export function useFetchMovies(data, dispatch, query) {
   const [header, setHeader] = useState('Popular Movies');
   const isSearch = query !== '';
 
-  const getMovies = useCallback(async () => {
+  const getMovies = useCallback(() => {
     const { page } = data;
+
     fetchMovies(query, page, isSearch).then(movieResults => {
       if (movieResults) {
         setHeader(isSearch ? 'Results' : 'Popular Movies');
@@ -48,6 +53,25 @@ export function useFetchMovies(data, dispatch, query) {
   }, [data.page, getMovies, dispatch]);
 
   return { header };
+}
+
+export function useFetchMovieDetails(movieId) {
+  const [state, setState] = useState({
+    movie: {},
+    cast: [],
+  });
+
+  useEffect(() => {
+    fetchMovieDetails(movieId).then(({ movie, cast }) => {
+      setState(state => ({
+        movie,
+        cast,
+      }));
+    });
+  }, [movieId]);
+
+  const { movie, cast } = state;
+  return { movie, cast };
 }
 
 export function useInfiniteScroll(scrollRef, dispatch) {
